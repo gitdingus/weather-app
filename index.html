@@ -22,6 +22,10 @@
     </div>
   </div>
   <script>
+    const getElement = function getElementFromQuerySelector(cssSelector){
+      return document.querySelector(cssSelector);
+    }
+    
     const city = getElement('#city');
     const state = getElement('#state');
     const zipcode = getElement('#zipcode');
@@ -29,9 +33,7 @@
     const findButton = getElement('#find');
     const locationForm = getElement('#location');
 
-    const getElement = function getElementFromQuerySelector(cssSelector){
-      return document.querySelector(cssSelector);
-    }
+
 
     const buildGeocodeQuery = function buildAPIQueryBasedOnProvidedData(){
       // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
