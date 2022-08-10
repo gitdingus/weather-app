@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Odin Weather</title>
+</head>
+<body>
+  
+  <div class="container">
+    <div class="form">
+      <form id="location" novalidate>
+        <label for="city">City</label>
+        <input type="text" id="city">
+        <label for="state">State</label>
+        <input type="text" id="state">
+        <label for="zipcode">Zipcode</label>
+        <input type="text" id="zipcode">
+        <label for="country">Country</label>
+        <input type="text" id="country">
+        <button type="button" id="find">Find</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    const city = getElement('#city');
+    const state = getElement('#state');
+    const zipcode = getElement('#zipcode');
+    const country = getElement('#country');
+    const findButton = getElement('#find');
+    const locationForm = getElement('#location');
+
+    const getElement = function getElementFromQuerySelector(cssSelector){
+      return document.querySelector(cssSelector);
+    }
+
+    const buildGeocodeQuery = function buildAPIQueryBasedOnProvidedData(){
+      // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
+      // http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid={API key}
+
+
+    }
+    const fetchLocations = async function getLocationsList(apiQuery){
+      const response = await fetch(apiQuery);
+      const data = await response.json();
+
+      return data;
+    }
+
+    locationForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      return false;
+    });
+
+
+  </script>
+</body>
+</html>
