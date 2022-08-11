@@ -42,8 +42,32 @@
     const buildGeocodeQuery = function buildAPIQueryBasedOnProvidedData(){
       // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
       // http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid={API key}
+      if (apiKey.value === ''){
+        return;
+      }
 
+      let apiQuery = 'http://api.openweathermap.org/geo/1.0/';
+      if (zipcode.value !== ''){
+        apiQuery += `zip?zip=${encodeURIComponent(zipcode.value)}`;
+        if (country.value !== ''){
+          apiQuery += `,${encodeURIComponent(country.value)}`;
+        }
+        apiQuery += `&limit=5&appid=${encodeURIComponent(apiKey.value)}`;
 
+        return apiQuery;
+      } else if (city.value !== ''){
+        apiQuery += `direct?q=${encodeURIComponent(city.value)}`;
+        if (state.value !== ''){
+          apiQuery += `,${encodeURIComponent(state.value)}`;
+        }
+        if (country.value !== ''){
+          apiQuery += `,${encodeURIComponent(country.value)}`;
+        }
+        apiQuery += `&limit=5&appid=${encodeURIComponent(apiKey.value)}`;
+
+        return apiQuery;
+      } 
+      return undefined;
     }
     const fetchLocations = async function getLocationsList(apiQuery){
       const response = await fetch(apiQuery);
