@@ -7,6 +7,10 @@
 <body>
   
   <div class="container">
+    <div class="api-key">
+      <label for="api-key">Api Key</label>
+      <input type="text" id="api-key">
+    </div>
     <div class="form">
       <form id="location" novalidate>
         <label for="city">City</label>
@@ -25,7 +29,7 @@
     const getElement = function getElementFromQuerySelector(cssSelector){
       return document.querySelector(cssSelector);
     }
-    
+    const apiKey = getElement('#api-key');
     const city = getElement('#city');
     const state = getElement('#state');
     const zipcode = getElement('#zipcode');
