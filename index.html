@@ -70,10 +70,18 @@
       return undefined;
     }
     const fetchLocations = async function getLocationsList(apiQuery){
-      const response = await fetch(apiQuery);
-      const data = await response.json();
+      try {
+        const response = await fetch(apiQuery);
+        console.log('Response OK? ' + response.ok);
+        const data = await response.json();
 
-      return data;
+        console.log('data ready');
+        console.log(data);
+        return data;
+      }
+      catch (error){
+        console.log('Error: ' + error);
+      }
     }
 
     locationForm.addEventListener('submit', (e) => {
