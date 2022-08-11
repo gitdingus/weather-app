@@ -89,6 +89,12 @@
       return false;
     });
 
+    findButton.addEventListener('click', (e) => {
+      const query = buildGeocodeQuery();
+      console.log(query);
+      fetchLocations(query);
+    });
+
 
   </script>
 </body>
