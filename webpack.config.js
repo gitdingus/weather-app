@@ -9,4 +9,10 @@ module.exports = {
   optimization: {
     minimize: false,
   },
-}
+  rules: [
+    {
+      test: /\.css$/i,
+      use: ["style-loader", "css-loader"],
+    },
+  ],
+},

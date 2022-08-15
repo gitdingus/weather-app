@@ -1,3 +1,5 @@
+import 'style.css';
+
 const getElement = function getElementFromQuerySelector(cssSelector){
   return document.querySelector(cssSelector);
 }
