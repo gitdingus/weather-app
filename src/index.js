@@ -174,9 +174,7 @@ function displayCurrentWeather(weather){
       collapseButton.textContent = 'Expand';
     }
   });
-
-  // clearCurrentWeatherDisplay();
-
+  
   currentWeather.appendChild(currentWeatherDisplay);
 
 }
@@ -202,7 +200,6 @@ function buildLocationElement(location){
 findButton.addEventListener('click', async (e) => {
 
   clearCitiesResults();
-  // clearCurrentWeatherDisplay();
   try { 
     const query = buildGeocodeQuery();
     const locations = await fetchLocations(query);
