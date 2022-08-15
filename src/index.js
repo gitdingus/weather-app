@@ -1,4 +1,4 @@
-import 'style.css';
+import './index.css';
 
 const getElement = function getElementFromQuerySelector(cssSelector){
   return document.querySelector(cssSelector);
