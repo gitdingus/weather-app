@@ -95,7 +95,15 @@
       background-color: rgba(211, 211, 211, .1);
       padding: 10px;
       box-shadow: 2px 2px 5px lightgray, inset 2px 2px lightgray;
+
+      display: grid;
+      flex-direction: row;
+      align-items: start;
+      align-content: start;
+      gap: 20px;
+
     }
+
 
     .weather-conditions{
       display: grid;
@@ -498,7 +506,7 @@
         }
       });
 
-      clearCurrentWeatherDisplay();
+      // clearCurrentWeatherDisplay();
 
       currentWeather.appendChild(currentWeatherDisplay);
     
@@ -525,7 +533,7 @@
     findButton.addEventListener('click', async (e) => {
 
       clearCitiesResults();
-      clearCurrentWeatherDisplay();
+      // clearCurrentWeatherDisplay();
       try { 
         const query = buildGeocodeQuery();
         const locations = await fetchLocations(query);
