@@ -483,8 +483,13 @@
       });
 
       collapseButton.addEventListener('click', (e) => {
-        console.log('clicked');
-        moreDetails.classList.toggle('collapsed');
+        if (moreDetails.classList.contains('collapsed')) {
+          moreDetails.classList.remove('collapsed');
+          collapseButton.textContent = 'Collapse';
+        } else {
+          moreDetails.classList.add('collapsed');
+          collapseButton.textContent = 'Expand';
+        }
       });
 
       clearCurrentWeatherDisplay();
