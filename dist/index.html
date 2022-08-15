@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Odin Weather</title>
+</head>
+<body>
+  
+  <div class="container">
+    <div class="api-key">
+      <div class="field">
+        <label for="api-key">Api Key</label>
+        <input type="text" id="api-key">
+      </div>
+    </div>
+    <div id="form">    
+      <form id="location" novalidate>
+        <div class="field">
+          <label for="city">City</label>
+          <input type="text" id="city">
+        </div>
+        <div class="field">
+          <label for="state">State</label>
+          <input type="text" id="state">
+        </div>
+        <div class="field">
+          <label for="zipcode">Zipcode</label>
+          <input type="text" id="zipcode">
+        </div>
+        <div class="field">
+          <label for="country">Country</label>
+          <input type="text" id="country">
+        </div>
+        <button type="button" id="find">Find</button>
+      </form>
+    </div>
+    <div id="search-results">
+      <h1>Locations found</h1>
+      <div id="cities"></div>
+    </div>
+    <div id="current-weather"></div>
+    <template id="weather-conditions-template">
+      <div class="weather-conditions">
+          <div class="actions">
+            <div class="forecast-buttons">
+              <button class="current-weather-button">Current Weather</button>
+              <button class="five-day-forecast-button">5-Day Forecast</button>
+              <button class="hourly-forecast-button">Hourly Forecast</button>
+            </div>
+            <div class="window-buttons">
+              <button class="collapse-button">Collapse</button>
+              <button class="close-button">Close</button>
+            </div>
+          </div>
+          <div class="icon-summary">
+            <img class="weather-icon">
+            <p class="weather-category"></p>
+          </div>
+          <div class="weather-header">
+            <h1>Weather for <span class="location"></span></h1>
+            <p class="weather-description"></p>
+            <p>Feels like <span class="feels-like fahr"></span></p>
+          </div>
+          <div class="sunrise-sunset">
+            <p>Sunrise <span class="sunrise"></span></p>
+            <p>Sunset <span class="sunset"></span></p>
+          </div>
+          <div class="more-details">
+            <p class="detail"><span class="label">Temperature</span> <span class="temperature value fahr"></span></p>
+            <p class="detail"><span class="label">Humidity</span> <span class="humidity value percent"></span></p>
+            <div class="rain-details">
+              <p class="sublist-header">Rain</p>
+              <p class="sublist-item detail"><span class="label">One hour</span><span class="rain-1hr value mm"></span></p>
+              <p class="sublist-item detail"><span class="label">Three hour</span><span class="rain-3hr value mm"></span></p>
+            </div>
+            <div class="snow-details">
+              <p class="sublist-header">Snow</p>
+              <p class="sublist-item detail"><span class="label">One hour</span> <span class="snow-1hr value mm"></span></p>
+              <p class="sublist-item detail"><span class="label">Three hour</span> <span class="snow-3hr value mm"></span></p>
+            </div>
+            <p class="detail"><span class="label">Clouds</span> <span class="clouds value percent"></span></p>
+            <p class="detail"><span class="label">Visibility</span> <span class="visibility value km"></span></p>
+            <p class="sublist-header">Wind</p>
+            <p class="sublist-item detail"><span class="label">Speed</span> <span class="wind-speed value mph"></span></p>
+            <p class="sublist-item detail"><span class="label">Direction</span><span class="wind-direction value degrees"></span></p>
+            <p class="sublist-item detail"><span class="label">Wind gust</span> <span class="wind-gust value mph"></span></p>
+            <p class="detail"><span class="label">Pressure</span> <span class="pressure value hpa"></span></p>
+          </div>
+      </div>
+    </template>
+
+  </div>
+
+  <script src='main.js'></script>
+</body>
+</html>
