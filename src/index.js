@@ -64,11 +64,53 @@ const fetchLocations = async function getLocationsList(apiQuery){
   }
 }
 
+function buildLocationElement(location){
+  const p = document.createElement('p');
+  
+  if (location.state !== undefined){
+    p.textContent = `${location.name}, ${location.state}, ${location.country}`;
+  } else if (location.zip !== undefined){
+    p.textContent = `${location.name}, ${location.zip}, ${location.country}`;
+  }
+  p.setAttribute('data-latlong', `lat=${location.lat}&lon=${location.lon}`);
+  p.addEventListener('click', async function (e) {
+    const currentWeather = await fetchCurrentWeather(buildCurrentWeatherQuery(location));
+    currentWeatherData = currentWeather;
+    console.log(currentWeather);
+    displayCurrentWeather(currentWeather);
+  });
+
+  return p;
+
+}
+
 locationForm.addEventListener('submit', (e) => {
   e.preventDefault();
   return false;
 });
 
+findButton.addEventListener('click', async (e) => {
+
+  clearCitiesResults();
+  try { 
+    const query = buildGeocodeQuery();
+    const locations = await fetchLocations(query);
+  
+    clearCitiesResults();
+    if (Array.isArray(locations) === true) {
+      locations.forEach((location) => {
+        citiesResults.appendChild(buildLocationElement(location));
+      });
+    } else { // should be checking for an Object
+      citiesResults.appendChild(buildLocationElement(locations));
+
+    }
+  }
+  catch (error)  {
+    console.log("Error: Could not retrieve data");
+  };
+
+});
 
 function buildCurrentWeatherQuery(location){
   // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
@@ -174,48 +216,7 @@ function displayCurrentWeather(weather){
       collapseButton.textContent = 'Expand';
     }
   });
-  
+
   currentWeather.appendChild(currentWeatherDisplay);
 
 }
-function buildLocationElement(location){
-  const p = document.createElement('p');
-  
-  if (location.state !== undefined){
-    p.textContent = `${location.name}, ${location.state}, ${location.country}`;
-  } else if (location.zip !== undefined){
-    p.textContent = `${location.name}, ${location.zip}, ${location.country}`;
-  }
-  p.setAttribute('data-latlong', `lat=${location.lat}&lon=${location.lon}`);
-  p.addEventListener('click', async function (e) {
-    const currentWeather = await fetchCurrentWeather(buildCurrentWeatherQuery(location));
-    currentWeatherData = currentWeather;
-    console.log(currentWeather);
-    displayCurrentWeather(currentWeather);
-  });
-
-  return p;
-
-}
-findButton.addEventListener('click', async (e) => {
-
-  clearCitiesResults();
-  try { 
-    const query = buildGeocodeQuery();
-    const locations = await fetchLocations(query);
-  
-    clearCitiesResults();
-    if (Array.isArray(locations) === true) {
-      locations.forEach((location) => {
-        citiesResults.appendChild(buildLocationElement(location));
-      });
-    } else { // should be checking for an Object
-      citiesResults.appendChild(buildLocationElement(locations));
-
-    }
-  }
-  catch (error)  {
-    console.log("Error: Could not retrieve data");
-  };
-
-});
