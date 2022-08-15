@@ -447,8 +447,10 @@
       const clouds = currentWeatherDisplay.querySelector('.clouds');
       const sunrise = currentWeatherDisplay.querySelector('.sunrise');
       const sunset = currentWeatherDisplay.querySelector('.sunset');
+      const rainDetails = currentWeatherDisplay.querySelector('.rain-details');
       const rain1hr = currentWeatherDisplay.querySelector('.rain-1hr');
       const rain3hr = currentWeatherDisplay.querySelector('.rain-3hr');
+      const snowDetails = currentWeatherDisplay.querySelector('.snow-details');
       const snow1hr = currentWeatherDisplay.querySelector('.snow-1hr');
       const snow3hr = currentWeatherDisplay.querySelector('.snow-3hr');
       const closeButton = currentWeatherDisplay.querySelector('.window-buttons .close-button');
@@ -472,10 +474,14 @@
       if (weather.rain !== undefined){
         rain1hr.textContent = weather.rain['1h'];
         rain3hr.textContent = weather.rain['3h'];
+      } else {
+        rainDetails.classList.add('inactive');
       }
       if (weather.snow !== undefined){
         snow1hr.textContent = weather.snow['1h'];
         snow3hr.textContent = weather.snow['3h'];
+      } else {
+        snowDetails.classList.add('inactive');
       }
 
       closeButton.addEventListener('click', (e) => {
