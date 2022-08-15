@@ -3,27 +3,227 @@
 <head>
   <meta charset="UTF-8">
   <title>Odin Weather</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    body {
+      padding: 0;
+      margin:0;
+    }
+    
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field label {
+      font-size: .8rem;
+    }
+
+    .field input {
+      width: 10vw;
+    }
+
+    #location{
+      display: flex;
+      gap: 8px;
+      padding: 8px;
+    }
+
+    #find {
+      width: 100%;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+      grid-template-rows: auto 1fr;
+      row-gap: 8px;
+
+      box-sizing: border-box;
+      width: 75vw;
+      min-height: 100vh;
+      margin: 10px;
+      font-family: Roboto;
+      box-shadow: 2px 2px 5px lightgray, inset 2px 2px lightgray;
+    }
+
+    .container #form {
+      grid-area: 1 / 2 / 2 / 3;
+    }
+    .container #search-results {
+      grid-area: 2 / 1 / 3 / 2;
+
+      display: flex;
+      flex-direction: column;
+
+      box-shadow: 2px 2px 5px lightgray, inset 2px 2px lightgray;
+      padding: 10px;
+
+    }
+
+    .container #current-weather {
+      grid-area: 2 / 2 / 3 / 3;
+      
+    }
+
+    #search-results * {
+      width: 100%;
+    }
+    #search-results h1{
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    #search-results #cities {
+      flex: 1;
+      box-sizing: border-box;
+      padding: 10px 20px;
+      margin-top: 4px;
+      box-shadow: inset 2px 2px lightgray, inset -2px -2px lightgray;
+    }
+    #search-results #cities p{
+      font-size: .8rem;
+      margin: 0;
+      padding: 2px;
+    }
+    #search-results #cities p:hover{
+      transform: translate(1.05);
+      background-color: lightgray;
+      cursor: pointer;
+    }
+
+    #current-weather {
+      background-color: rgba(211, 211, 211, .1);
+      padding: 10px;
+      box-shadow: 2px 2px 5px lightgray, inset 2px 2px lightgray;
+    }
+
+    .weather-conditions{
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      column-gap: 30px;
+      padding: 30px;
+
+      box-shadow: 2px 2px 5px lightgray, inset 2px 2px lightgray;
+
+      background-color: white;
+    }
+
+    .weather-conditions .icon-summary {
+      grid-area: 1 / 1 / 2 / 2;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .weather-conditions .icon-summary p {
+      font-family: Roboto;
+      font-size: 1.5rem;
+      margin: 0;
+      transform: translateY(-25px);
+    }
+
+    .weather-conditions .weather-header{
+      grid-area: 1 / 2 / 2 / 3;
+    }
+
+    .weather-conditions .weather-header * {
+      margin: 0;
+    }
+
+    .weather-conditions .weather-header h1 {
+      font-family: Roboto;
+      font-size: 1.5rem;
+    }
+
+    .weather-conditions .weather-header .weather-description{
+      text-transform: capitalize;
+    }
+    .weather-conditions .sunrise-sunset {
+      grid-area: 1 / 3 / 2 / 4;
+    }
+
+    .weather-conditions .sunrise-sunset * {
+      margin: 0;
+    }
+
+    .weather-conditions .more-details {
+      grid-area: 2 / 2 / 3 / 3;
+    }
+
+    .weather-conditions .more-details *{
+      margin: 0;
+    }
+
+  </style>
 </head>
 <body>
-  
+
   <div class="container">
     <div class="api-key">
-      <label for="api-key">Api Key</label>
-      <input type="text" id="api-key">
+      <div class="field">
+        <label for="api-key">Api Key</label>
+        <input type="text" id="api-key">
+      </div>
     </div>
-    <div class="form">
+    <div id="form">    
       <form id="location" novalidate>
-        <label for="city">City</label>
-        <input type="text" id="city">
-        <label for="state">State</label>
-        <input type="text" id="state">
-        <label for="zipcode">Zipcode</label>
-        <input type="text" id="zipcode">
-        <label for="country">Country</label>
-        <input type="text" id="country">
+        <div class="field">
+          <label for="city">City</label>
+          <input type="text" id="city">
+        </div>
+        <div class="field">
+          <label for="state">State</label>
+          <input type="text" id="state">
+        </div>
+        <div class="field">
+          <label for="zipcode">Zipcode</label>
+          <input type="text" id="zipcode">
+        </div>
+        <div class="field">
+          <label for="country">Country</label>
+          <input type="text" id="country">
+        </div>
         <button type="button" id="find">Find</button>
       </form>
     </div>
+    <div id="search-results">
+      <h1>Locations found</h1>
+      <div id="cities"></div>
+    </div>
+    <div id="current-weather"></div>
+    <template id="weather-conditions-template">
+      <div class="weather-conditions">
+          <div class="icon-summary">
+            <img class="weather-icon">
+            <p class="weather-category"></p>
+          </div>
+          <div class="weather-header">
+            <h1>Weather for <span class="location"></span></h1>
+            <p class="weather-description"></p>
+            <p>Feels like <span class="feels-like"></span></p>
+          </div>
+          <div class="sunrise-sunset">
+            <p>Sunrise <span class="sunrise"></span></p>
+            <p>Sunset <span class="sunset"></span></p>
+          </div>
+          <div class="more-details">
+            <p>Temperature <span class="temperature"></span></p>
+            <p>Humidity <span class="humidity"></span></p>
+            <div class="precipitation">
+              <p>Rain 1hr <span class="rain-1hr"></span> / 3hr <span class="rain-3hr"></span></p>
+              <p>Snow 1hr <span class="snow-1hr"></span> / 3hr <span class="snow-3hr"></span></p>
+            </div>
+            <p>Clouds <span class="clouds"></span></p>
+            <p>Visibility <span class="visibility"></span></p>
+            <p>Wind <span class="wind-speed"></span> <span class="wind-direction"></span></p>
+            <p>Wind gust <span class="wind-gust"></span></p>
+            <p>Pressure <span class="pressure"></span></p>
+          </div>
+      </div>
+    </template>
+
   </div>
   <script>
     const getElement = function getElementFromQuerySelector(cssSelector){
@@ -36,11 +236,21 @@
     const country = getElement('#country');
     const findButton = getElement('#find');
     const locationForm = getElement('#location');
+    const citiesResults = getElement('#cities');
+    const currentWeather = getElement('#current-weather');
+    let currentWeatherData;
+    let units = 'imperial';
 
-    const buildGeocodeQuery = function buildAPIQueryBasedOnProvidedData(){
+    const clearCitiesResults = function clearChildrenFromCitiesDiv (){
+      while (citiesResults.firstChild !== null){
+        citiesResults.firstChild.remove();
+      }
+    }
+    const buildGeocodeQuery = function buildGeocodeAPIQueryBasedOnProvidedData(){
       // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
       // http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid={API key}
       if (apiKey.value === ''){
+        throw Error('Must provide API key');
         return;
       }
 
@@ -73,8 +283,6 @@
         console.log('Response OK? ' + response.ok);
         const data = await response.json();
 
-        console.log('data ready');
-        console.log(data);
         return data;
       }
       catch (error){
@@ -87,10 +295,135 @@
       return false;
     });
 
-    findButton.addEventListener('click', (e) => {
-      const query = buildGeocodeQuery();
-      console.log(query);
-      fetchLocations(query);
+
+    function buildCurrentWeatherQuery(location){
+      // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+      let currentWeatherQuery = 'https://api.openweathermap.org/data/2.5/weather?';
+      currentWeatherQuery += `lat=${location.lat}&`;
+      currentWeatherQuery += `lon=${encodeURIComponent(location.lon)}&`;
+      currentWeatherQuery += `appid=${encodeURIComponent(apiKey.value)}&`;
+      if (units === 'imperial'){
+        currentWeatherQuery += `units=imperial`;
+      }
+
+      return currentWeatherQuery;
+    }
+
+    async function fetchCurrentWeather(apiQuery) {
+      const response = await fetch(apiQuery);
+      console.log('Response OK? ' + response.ok);
+      const currentWeather = await response.json();
+
+      return currentWeather;
+    }
+
+    function clearCurrentWeatherDisplay(){
+      while(currentWeather.firstChild){
+        currentWeather.firstChild.remove();
+      }
+    }
+
+    function getWeatherIconSrc(iconId){
+      // http://openweathermap.org/img/wn/{iconID}@2x.png
+
+      return `http://openweathermap.org/img/wn/${iconId}@2x.png`;
+    }
+
+    function getReadableTime(date){
+      return `${date.getHours()}:${date.getMinutes()}`;
+    }
+    function displayCurrentWeather(weather){
+      const currentWeatherDisplayTemplate = getElement('#weather-conditions-template');
+      const currentWeatherDisplay = currentWeatherDisplayTemplate.content.firstElementChild.cloneNode(true);
+      const location = currentWeatherDisplay.querySelector('.location');
+      const weatherIcon = currentWeatherDisplay.querySelector('.weather-icon');
+      const weatherCategory = currentWeatherDisplay.querySelector('.weather-category');
+      const weatherDescription = currentWeatherDisplay.querySelector('.weather-description');
+      const temperature = currentWeatherDisplay.querySelector('.temperature');
+      const feelsLike = currentWeatherDisplay.querySelector('.feels-like');
+      const humidity = currentWeatherDisplay.querySelector('.humidity');
+      const pressure = currentWeatherDisplay.querySelector('.pressure');
+      const visibility = currentWeatherDisplay.querySelector('.visibility');
+      const windSpeed = currentWeatherDisplay.querySelector('.wind-speed');
+      const windDirection = currentWeatherDisplay.querySelector('.wind-direction');
+      const windGust = currentWeatherDisplay.querySelector('.wind-gust');
+      const clouds = currentWeatherDisplay.querySelector('.clouds');
+      const sunrise = currentWeatherDisplay.querySelector('.sunrise');
+      const sunset = currentWeatherDisplay.querySelector('.sunset');
+      const rain1hr = currentWeatherDisplay.querySelector('.rain-1hr');
+      const rain3hr = currentWeatherDisplay.querySelector('.rain-3hr');
+      const snow1hr = currentWeatherDisplay.querySelector('.snow-1hr');
+      const snow3hr = currentWeatherDisplay.querySelector('.snow-3hr');
+
+      location.textContent = `${weather.name}, ${weather.sys.country}`;
+      weatherIcon.src = getWeatherIconSrc(weather.weather[0].icon);
+      weatherCategory.textContent = weather.weather[0].main;
+      weatherDescription.textContent = weather.weather[0].description;
+      temperature.textContent = weather.main.temp;
+      feelsLike.textContent = weather.main.feels_like;
+      humidity.textContent = weather.main.humidity + '%';
+      pressure.textContent = weather.main.pressure + 'hPa'
+      visibility.textContent = weather.visibility;
+      windSpeed.textContent = weather.wind.speed + 'mph';
+      windDirection.textContent = weather.wind.deg + 'degrees';
+      windGust.textContent = weather.wind.gust + 'mph';
+      clouds.textContent = weather.clouds.all + '%';
+      sunrise.textContent = getReadableTime(new Date(weather.sys.sunrise * 1000));
+      sunset.textContent = getReadableTime(new Date(weather.sys.sunset * 1000));
+      if (weather.rain !== undefined){
+        rain1hr.textContent = weather.rain['1h'];
+        rain3hr.textContent = weather.rain['3h'];
+      }
+      if (weather.snow !== undefined){
+        snow1hr.textContent = weather.snow['1h'];
+        snow3hr.textContent = weather.snow['3h'];
+      }
+      clearCurrentWeatherDisplay();
+
+      currentWeather.appendChild(currentWeatherDisplay);
+    
+    }
+    function buildLocationElement(location){
+      const p = document.createElement('p');
+      
+      if (location.state !== undefined){
+        p.textContent = `${location.name}, ${location.state}, ${location.country}`;
+      } else if (location.zip !== undefined){
+        p.textContent = `${location.name}, ${location.zip}, ${location.country}`;
+      }
+      p.setAttribute('data-latlong', `lat=${location.lat}&lon=${location.lon}`);
+      p.addEventListener('click', async function (e) {
+        const currentWeather = await fetchCurrentWeather(buildCurrentWeatherQuery(location));
+        currentWeatherData = currentWeather;
+        console.log(currentWeather);
+        displayCurrentWeather(currentWeather);
+      });
+
+      return p;
+
+    }
+    findButton.addEventListener('click', async (e) => {
+
+      clearCitiesResults();
+      clearCurrentWeatherDisplay();
+      try { 
+        const query = buildGeocodeQuery();
+        const locations = await fetchLocations(query);
+      
+        clearCitiesResults();
+        if (Array.isArray(locations) === true) {
+          locations.forEach((location) => {
+            citiesResults.appendChild(buildLocationElement(location));
+          });
+        } else { // should be checking for an Object
+          citiesResults.appendChild(buildLocationElement(locations));
+
+        }
+      }
+      catch (error)  {
+        console.log("Error: Could not retrieve data");
+      };
+
     });
 
 
