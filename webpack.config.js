@@ -10,6 +10,9 @@ module.exports = {
   optimization: {
     minimize: false,
   },
+  devServer: {
+    static: './dist',
+  },
   module: {
     rules: [
       {
