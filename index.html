@@ -460,13 +460,13 @@
       weatherDescription.textContent = weather.weather[0].description;
       temperature.textContent = weather.main.temp;
       feelsLike.textContent = weather.main.feels_like;
-      humidity.textContent = weather.main.humidity + '%';
-      pressure.textContent = weather.main.pressure + 'hPa'
+      humidity.textContent = weather.main.humidity;
+      pressure.textContent = weather.main.pressure;
       visibility.textContent = weather.visibility;
-      windSpeed.textContent = weather.wind.speed + 'mph';
-      windDirection.textContent = weather.wind.deg + 'degrees';
-      windGust.textContent = weather.wind.gust + 'mph';
-      clouds.textContent = weather.clouds.all + '%';
+      windSpeed.textContent = weather.wind.speed;
+      windDirection.textContent = weather.wind.deg;
+      windGust.textContent = weather.wind.gust;
+      clouds.textContent = weather.clouds.all;
       sunrise.textContent = getReadableTime(new Date(weather.sys.sunrise * 1000));
       sunset.textContent = getReadableTime(new Date(weather.sys.sunset * 1000));
       if (weather.rain !== undefined){
