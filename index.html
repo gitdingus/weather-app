@@ -266,24 +266,32 @@
           <div class="weather-header">
             <h1>Weather for <span class="location"></span></h1>
             <p class="weather-description"></p>
-            <p>Feels like <span class="feels-like"></span></p>
+            <p>Feels like <span class="feels-like fahr"></span></p>
           </div>
           <div class="sunrise-sunset">
             <p>Sunrise <span class="sunrise"></span></p>
             <p>Sunset <span class="sunset"></span></p>
           </div>
           <div class="more-details">
-            <p>Temperature <span class="temperature"></span></p>
-            <p>Humidity <span class="humidity"></span></p>
-            <div class="precipitation">
-              <p>Rain 1hr <span class="rain-1hr"></span> / 3hr <span class="rain-3hr"></span></p>
-              <p>Snow 1hr <span class="snow-1hr"></span> / 3hr <span class="snow-3hr"></span></p>
+            <p class="detail"><span class="label">Temperature</span> <span class="temperature value fahr"></span></p>
+            <p class="detail"><span class="label">Humidity</span> <span class="humidity value percent"></span></p>
+            <div class="rain-details">
+              <p class="sublist-header">Rain</p>
+              <p class="sublist-item detail"><span class="label">One hour</span><span class="rain-1hr value mm"></span></p>
+              <p class="sublist-item detail"><span class="label">Three hour</span><span class="rain-3hr value mm"></span></p>
             </div>
-            <p>Clouds <span class="clouds"></span></p>
-            <p>Visibility <span class="visibility"></span></p>
-            <p>Wind <span class="wind-speed"></span> <span class="wind-direction"></span></p>
-            <p>Wind gust <span class="wind-gust"></span></p>
-            <p>Pressure <span class="pressure"></span></p>
+            <div class="snow-details">
+              <p class="sublist-header">Snow</p>
+              <p class="sublist-item detail"><span class="label">One hour</span> <span class="snow-1hr value mm"></span></p>
+              <p class="sublist-item detail"><span class="label">Three hour</span> <span class="snow-3hr value mm"></span></p>
+            </div>
+            <p class="detail"><span class="label">Clouds</span> <span class="clouds value percent"></span></p>
+            <p class="detail"><span class="label">Visibility</span> <span class="visibility value km"></span></p>
+            <p class="sublist-header">Wind</p>
+            <p class="sublist-item detail"><span class="label">Speed</span> <span class="wind-speed value mph"></span></p>
+            <p class="sublist-item detail"><span class="label">Direction</span><span class="wind-direction value degrees"></span></p>
+            <p class="sublist-item detail"><span class="label">Wind gust</span> <span class="wind-gust value mph"></span></p>
+            <p class="detail"><span class="label">Pressure</span> <span class="pressure value hpa"></span></p>
           </div>
       </div>
     </template>
