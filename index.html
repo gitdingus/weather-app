@@ -109,8 +109,11 @@
       background-color: white;
     }
 
+    .weather-conditions .actions {
+      grid-area: 1 / 1 / 2 / 4;
+    }
     .weather-conditions .icon-summary {
-      grid-area: 1 / 1 / 2 / 2;
+      grid-area: 2 / 1 / 3 / 2;
       display:flex;
       align-items: center;
       justify-content: center;
@@ -125,7 +128,7 @@
     }
 
     .weather-conditions .weather-header{
-      grid-area: 1 / 2 / 2 / 3;
+      grid-area: 2 / 2 / 3 / 3;
     }
 
     .weather-conditions .weather-header * {
@@ -141,7 +144,7 @@
       text-transform: capitalize;
     }
     .weather-conditions .sunrise-sunset {
-      grid-area: 1 / 3 / 2 / 4;
+      grid-area: 2 / 3 / 3 / 4;
     }
 
     .weather-conditions .sunrise-sunset * {
@@ -149,11 +152,28 @@
     }
 
     .weather-conditions .more-details {
-      grid-area: 2 / 2 / 3 / 3;
+      grid-area: 3 / 2 / 4 / 3;
+    }
+
+    .weather-conditions .more-details.collapsed{
+      height: 0;
+      overflow: hidden;
     }
 
     .weather-conditions .more-details *{
       margin: 0;
+    }
+    .weather-conditions .actions{
+      display: flex;
+      justify-content: space-between;
+      padding-left: 30px;
+
+      box-shadow: 0px 2px 2px lightgray;
+    }
+    .weather-conditions .actions button{
+      border: none;
+      border-radius: 4px;
+      padding: 4px;
     }
 
   </style>
@@ -195,6 +215,17 @@
     <div id="current-weather"></div>
     <template id="weather-conditions-template">
       <div class="weather-conditions">
+          <div class="actions">
+            <div class="forecast-buttons">
+              <button class="current-weather-button">Current Weather</button>
+              <button class="five-day-forecast-button">5-Day Forecast</button>
+              <button class="hourly-forecast-button">Hourly Forecast</button>
+            </div>
+            <div class="window-buttons">
+              <button class="collapse-button">Collapse</button>
+              <button class="close-button">Close</button>
+            </div>
+          </div>
           <div class="icon-summary">
             <img class="weather-icon">
             <p class="weather-category"></p>
@@ -354,7 +385,9 @@
       const rain3hr = currentWeatherDisplay.querySelector('.rain-3hr');
       const snow1hr = currentWeatherDisplay.querySelector('.snow-1hr');
       const snow3hr = currentWeatherDisplay.querySelector('.snow-3hr');
-
+      const closeButton = currentWeatherDisplay.querySelector('.window-buttons .close-button');
+      const collapseButton = currentWeatherDisplay.querySelector('.window-buttons .collapse-button');
+      const moreDetails = currentWeatherDisplay.querySelector('.more-details');
       location.textContent = `${weather.name}, ${weather.sys.country}`;
       weatherIcon.src = getWeatherIconSrc(weather.weather[0].icon);
       weatherCategory.textContent = weather.weather[0].main;
@@ -378,6 +411,16 @@
         snow1hr.textContent = weather.snow['1h'];
         snow3hr.textContent = weather.snow['3h'];
       }
+
+      closeButton.addEventListener('click', (e) => {
+        currentWeatherDisplay.remove();
+      });
+
+      collapseButton.addEventListener('click', (e) => {
+        console.log('clicked');
+        moreDetails.classList.toggle('collapsed');
+      });
+
       clearCurrentWeatherDisplay();
 
       currentWeather.appendChild(currentWeatherDisplay);
