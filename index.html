@@ -112,6 +112,39 @@
     .weather-conditions .actions {
       grid-area: 1 / 1 / 2 / 4;
     }
+
+    .weather-conditions .value {
+      font-family: 'Roboto Mono';
+      /* font-size: .8rem */
+    }
+
+    .weather-conditions .fahr::after{
+      content: '°F';
+    }
+
+    .weather-conditions .percent::after{
+      content: '%';
+    }
+
+    .weather-conditions .hpa::after{
+      content: 'hPa';
+    }
+
+    .weather-conditions .km::after{
+      content: 'km';
+    }
+
+    .weather-conditions .mph::after {
+      content: 'mph';
+    }
+
+    .weather-conditions .mm::after {
+      content: 'mm';
+    }
+
+    .weather-conditions .degrees::after {
+      content: '°';
+    }
     .weather-conditions .icon-summary {
       grid-area: 2 / 1 / 3 / 2;
       display:flex;
